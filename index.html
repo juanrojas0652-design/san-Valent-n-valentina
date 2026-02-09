@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para mi Princesita Hermosa 💖</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(to bottom right, #2b1055, #7597de);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    color:white;
+    text-align:center;
+    overflow:hidden;
+    position:relative;
+}
+
+.card{
+    background: rgba(0,0,0,0.55);
+    padding:40px;
+    border-radius:25px;
+    width:90%;
+    max-width:700px;
+    box-shadow:0 0 40px rgba(255,105,180,0.4);
+    position:relative;
+}
+
+.photo-frame img{
+    width:220px;
+    height:280px;
+    object-fit:cover;
+    border-radius:20px;
+    border:5px solid #ff4d6d;
+    margin-bottom:20px;
+}
+
+.buttons{
+    margin-top:25px;
+    position:relative;
+}
+
+button{
+    padding:12px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    margin:10px;
+    transition:0.3s;
+    position:relative;
+}
+
+#yes{
+    background:#ff4d6d;
+    color:white;
+}
+
+#no{
+    background:#444;
+    color:white;
+    position:absolute;
+}
+
+.heart{
+    position:absolute;
+    font-size:25px;
+    animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+    0%{transform:scale(0); opacity:1;}
+    50%{transform:scale(1.5);}
+    100%{transform:translateY(-200px) scale(0.5); opacity:0;}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Música -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/dH7_By3Y2i0?autoplay=1&loop=1&playlist=dH7_By3Y2i0"
+frameborder="0"
+allow="autoplay">
+</iframe>
+
+<div class="card" id="main">
+
+    <div class="photo-frame">
+        <img src="valentina.jpg" alt="Valentina">
+    </div>
+
+    <h2>Valentina Loaiza 💖</h2>
+
+    <p id="question">¿Quieres ser mi San Valentín?</p>
+
+    <div class="buttons">
+        <button id="yes" onclick="sayYes()">Sí 💘</button>
+        <button id="no" onclick="sayNo()">No 😢</button>
+    </div>
+
+</div>
+
+<script>
+let noCount = 0;
+let yesSize = 18;
+
+const messages = [
+    "Si canson 😢",
+    "Dime que sí princesa 🥺",
+    "Me encantas… ¿dirás que sí? 💕",
+    "Te cocinaré algo super delicioso cuando vuelva si me dices que sí 🍝",
+    "Y te consentiré mucho mucho mucho… ya di que sí 💖"
+];
+
+function sayNo(){
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const question = document.getElementById("question");
+
+    if(noCount < messages.length){
+        question.innerHTML = messages[noCount];
+
+        noBtn.style.transform = `scale(${1 - (noCount+1)*0.15})`;
+
+        const maxX = window.innerWidth - 100;
+        const maxY = window.innerHeight - 50;
+        noBtn.style.left = Math.random() * maxX + "px";
+        noBtn.style.top = Math.random() * maxY + "px";
+
+        yesSize += 6;
+        yesBtn.style.fontSize = yesSize + "px";
+
+        noCount++;
+    }
+
+    if(noCount >= messages.length){
+        noBtn.style.display = "none";
+    }
+}
+
+function sayYes(){
+
+    explodeHearts();
+
+    setTimeout(()=>{
+        document.getElementById("main").innerHTML = `
+        <h1>💞 Te amo esta y mil vidas más 💞</h1>
+        <p style="margin-top:25px; font-size:18px; line-height:1.8;">
+        Mi niña te amo y aunque no podré estar contigo en este fin de semana 
+        quiero que sepas que igual quiero que sepas que estaré pensando en ti todo el tiempo 
+        y estoy dispuesto a esforzarme y hacer todo lo que pueda por verte feliz 
+        mi princesita hermosa.<br><br>
+        Te amo y te extraño 💖
+        </p>
+        `;
+    },800);
+}
+
+function explodeHearts(){
+    for(let i=0;i<40;i++){
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML="💖";
+        heart.style.left = (window.innerWidth/2) + "px";
+        heart.style.top = (window.innerHeight/2) + "px";
+        heart.style.fontSize = (Math.random()*30 + 20) + "px";
+        heart.style.transform = `rotate(${Math.random()*360}deg)`;
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{heart.remove();},1000);
+    }
+}
+</script>
+
+</body>
+</html>
